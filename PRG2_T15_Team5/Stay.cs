@@ -8,7 +8,10 @@ namespace PRG2_T15_Team5
 {
     class Stay
     {
-        //hiiiiiii
-        //bye
+        private List<string> roomList;
+        private DateTime checkInDate;
+        private DateTime checkOutDate;
+
+
     }
 }
