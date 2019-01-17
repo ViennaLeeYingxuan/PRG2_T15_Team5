@@ -8,5 +8,35 @@ namespace PRG2_T15_Team5
 {
     class Membership
     {
+        private string status;
+        private int points;
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
+        public int Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
+
+        //constructor
+
+        public Membership() { }
+        public Membership(string s, int p)
+        {
+            status = s;
+            points = p;
+        }
+        
+        //public double EarnPoints ()
+        //{ }
+
+        //public int RedeemPoints ()
+        //{ }
+
     }
 }
