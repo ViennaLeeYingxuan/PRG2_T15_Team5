@@ -20,11 +20,12 @@ namespace PRG2_T15_Team5
         public DeluxeRoom(string r, string n, string b, double d, bool i, int o) : base(r, n, b, d, i, o) { }
         // 2 lines above not sure
 
-        public override CalculateCharges()
+        /*
+        public override double CalculateCharges()
         {
-
+            if 
         }
-
+        */
         
         
         
