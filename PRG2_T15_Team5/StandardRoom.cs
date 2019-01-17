@@ -27,7 +27,7 @@ namespace PRG2_T15_Team5
         public StandardRoom() : base() { }
         public StandardRoom(string t, string no, string c, double r, bool a, int o) : base()
         {
-            
+            // hi 
         }
 
 
