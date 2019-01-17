@@ -8,6 +8,26 @@ namespace PRG2_T15_Team5
 {
     class StandardRoom : HotelRoom 
     {
+        private bool requireWifi;
+        private bool requireBreakfast;
         
+        
+        public bool RequireWifi
+        {
+            get { return requireWifi; }
+            set { requireWifi = value; }
+        }
+
+        public bool RequireBreakfast
+        {
+            get { return requireBreakfast; }
+            set { requireBreakfast = value; }
+        }
+
+        public StandardRoom() : base() { }
+        public StandardRoom(string t, string n, string b, double d, bool i, int o) : base()
+        {
+
+        }
     }
 }
