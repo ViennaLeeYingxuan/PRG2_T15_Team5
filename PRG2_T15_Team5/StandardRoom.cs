@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace PRG2_T15_Team5
 {
-    class StandardRoom
+    class StandardRoom : HotelRoom 
     {
+        private bool requireWifi;
+        private bool requireBreakfast;
+        
+        
+        public bool RequireWifi
+        {
+            get { return requireWifi; }
+            set { requireWifi = value; }
+        }
+
+        public bool RequireBreakfast
+        {
+            get { return requireBreakfast; }
+            set { requireBreakfast = value; }
+        }
+
+        public StandardRoom() { }
+        public
     }
 }
