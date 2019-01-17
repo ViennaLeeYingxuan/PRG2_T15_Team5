@@ -50,5 +50,16 @@ namespace PRG2_T15_Team5
             get { return noOfOccupants; }
             set { noOfOccupants = value; }
         }
+
+        public HotelRoom() { }
+        public HotelRoom(string t, string no, string c,double r, bool a, int o)
+        {
+            roomType = t;
+            roomNumber = no;
+            bedConfiguration = c;
+            dailyRate = r;
+            isAvail = a;
+            noOfOccupants = o;
+        }
     }
 }
