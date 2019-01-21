@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_T15_Team5
 {
-    class Stay : HotelRoom
+    class Stay 
     {
         private List<HotelRoom> roomList = new List<HotelRoom>();
         private DateTime checkInDate;
@@ -42,7 +42,19 @@ namespace PRG2_T15_Team5
             roomList.Add(r);
         }
 
-        //public double CalculateTotal()
+        /*
+        public double CalculateTotal()
+        {
+            double total = 0;
+            double days = 0;
+            (checkOutDate.Date - checkInDate.Date).Days = days;
+
+            //if (HotelRoom r == 
+            // use a for lopp
+
+            
+        }
+        */
 
     }
 }
