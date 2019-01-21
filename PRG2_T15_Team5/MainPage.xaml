@@ -9,6 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock x:Name="guestName" HorizontalAlignment="Left" Margin="46,58,0,0" Text="Name of guest:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="guestNameTxt" HorizontalAlignment="Left" Margin="46,93,0,0" Text="" VerticalAlignment="Top" Height="77" Width="271"/>
+        <TextBox x:Name="title" HorizontalAlignment="Center" Margin="0,13,0,0" Text="Hotel Guest Management System" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <TextBlock x:Name="numAdult" HorizontalAlignment="Left" Margin="373,58,0,0" Text="No. Of Adultz:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="373,93,0,0" Text="" VerticalAlignment="Top" Height="77" Width="93"/>
 
     </Grid>
 </Page>
