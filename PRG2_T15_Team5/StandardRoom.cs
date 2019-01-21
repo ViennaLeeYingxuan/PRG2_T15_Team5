@@ -25,9 +25,34 @@ namespace PRG2_T15_Team5
         }
 
         public StandardRoom() : base() { }
-        public StandardRoom(string t, string n, string b, double d, bool i, int o) : base()
-        {
+        public StandardRoom(string t, string n, string b, double d, bool i, int o) : base(t, n, b, d, i, o) { }
 
+        public override double CalculateCharges()
+        {
+            double charges = 0;
+            if (requireWifi == true && requireBreakfast == true)
+            {
+                charges += 30;
+            }
+            if (requireWifi == true)
+            {
+                charges += 10;
+            }
+            if (requireBreakfast == true)
+            {
+                charges += 20;
+            }
+            else
+            {
+                charges += 0;
+            }
+            return charges;
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + requireBreakfast + requireWifi;
+        }
+
     }
 }

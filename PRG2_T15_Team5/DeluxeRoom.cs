@@ -18,17 +18,29 @@ namespace PRG2_T15_Team5
 
         public DeluxeRoom() { }
         public DeluxeRoom(string r, string n, string b, double d, bool i, int o) : base(r, n, b, d, i, o) { }
-        // 2 lines above not sure
-
-        /*
+      
         public override double CalculateCharges()
         {
-            if 
+            double charges = 0;
+            if (additionalBed == true )
+            {
+                charges += 25;
+            }
+            else
+            {
+                charges += 0;
+            }
+            return charges;
         }
-        */
-        
-        
-        
+
+        public override string ToString()
+        {
+            return base.ToString() + additionalBed;
+        }
+
+
+
+
 
     }
 }
