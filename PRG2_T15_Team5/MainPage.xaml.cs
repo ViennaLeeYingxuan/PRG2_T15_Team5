@@ -22,9 +22,16 @@ namespace PRG2_T15_Team5
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        List<Guest> roomList = new List<Guest>();
         public MainPage()
         {
             this.InitializeComponent();
+
+        }
+
+        public void InItData()
+        {
+           
         }
     }
 }
