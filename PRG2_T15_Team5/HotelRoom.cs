@@ -68,7 +68,7 @@ namespace PRG2_T15_Team5
 
         public override string ToString()
         {
-            return roomType + roomNumber + bedConfiguration + dailyRate + isAvail + noOfOccupants;
+            return roomType + roomNumber + bedConfiguration + "$" + dailyRate;
         }
  
         
