@@ -81,6 +81,7 @@ namespace PRG2_T15_Team5
             noKids = numChildTxt.Text;
             //checkIn = checkInDate;
             //checkOut = ;
+
         }
 
         private void checkRoomBtn_Click(object sender, RoutedEventArgs e)
@@ -96,9 +97,8 @@ namespace PRG2_T15_Team5
             availableList.ItemsSource = availList;
         }
 
-        private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
+
+
     }
 }
