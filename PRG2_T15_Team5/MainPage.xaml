@@ -34,7 +34,7 @@
         <Button x:Name="redeemPointBtn" Content="Redeem points" HorizontalAlignment="Left" Margin="1189,136,0,0" VerticalAlignment="Top" Height="64" Width="133"/>
         <TextBlock x:Name="invoice" HorizontalAlignment="Left" Margin="1066,234,0,0" Text="Invoice:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="invoiceTxt" HorizontalAlignment="Left" Margin="1182,234,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ListView x:Name="availableList" HorizontalAlignment="Left" Height="379" Margin="46,398,0,0" VerticalAlignment="Top" Width="420"/>
+        <ListView x:Name="availableList" HorizontalAlignment="Left" Height="379" Margin="46,398,0,0" VerticalAlignment="Top" Width="420" SelectionChanged="availableList_SelectionChanged"/>
         <CheckBox x:Name="breakfast" Content="Add Breakfast" HorizontalAlignment="Left" Margin="509,425,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="wifi" Content="Add Wifi" HorizontalAlignment="Left" Margin="509,473,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="bed" Content="Add Bed" HorizontalAlignment="Left" Margin="511,520,0,0" VerticalAlignment="Top"/>
