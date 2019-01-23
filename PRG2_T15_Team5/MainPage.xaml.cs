@@ -22,10 +22,13 @@ namespace PRG2_T15_Team5
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        List<String> availList = new List<string>();
+        List<HotelRoom> availList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
         List<Stay> roomList = new List<Stay>();
         List<HotelRoom> hotelList = new List<HotelRoom>();
+        List<HotelRoom> checkList = new List<HotelRoom>();
+        List<HotelRoom> selectedList = new List<HotelRoom>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -87,12 +90,12 @@ namespace PRG2_T15_Team5
 
         private void checkRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            
             foreach (HotelRoom room in hotelList)
             {    
                 if ( room.IsAvail == true)
                 {
-                    availList.Add(room.RoomType + "\t" + room.RoomNumber + "\t" + room.BedConfiguration + "\t" + "$" + room.DailyRate);
+                    availList.Add(room);
+                    //availList.Add(room.RoomType + "\t" + room.RoomNumber + "\t" + room.BedConfiguration + "\t" + "$" + room.DailyRate);
                 }
             }
             availableList.ItemsSource = availList;
@@ -100,25 +103,33 @@ namespace PRG2_T15_Team5
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<string> selectedList = new List<string>();
             HotelRoom clicked = (HotelRoom)availableList.SelectedItem;
+            if (clicked != null)
+            {
+                availableList.ItemsSource = null;
+                selectedList.Add(clicked);
+                selectedRooms.ItemsSource = selectedList;
+                availList.Remove(clicked);
 
-            availableList.ItemsSource = availList;
+               
+            }
+
             //foreach (HotelRoom rm in availableList.SelectedItem)
 
-            if (clicked != null /*&& clicked == StandardRoom*/)
-            {
-                availList.Remove(clicked.ToString());
-                selectedList.Add(clicked.ToString());
+            //if (clicked != null /*&& clicked == StandardRoom*/)
+            //{
+                //checkList.Remove(clicked);
+                //selectedList.Add(clicked.ToString());
 
-                selectedRooms.ItemsSource = selectedList;
+                //selectedRooms.ItemsSource = selectedList;
 
                 //availableList.ItemsSource = null;
                 //availableList
 
 
 
-            }
+
+         
         }
 
         private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
