@@ -22,6 +22,7 @@ namespace PRG2_T15_Team5
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        List<String> availList = new List<string>();
         List<Guest> guestList = new List<Guest>();
         List<Stay> roomList = new List<Stay>();
         List<HotelRoom> hotelList = new List<HotelRoom>();
@@ -86,7 +87,7 @@ namespace PRG2_T15_Team5
 
         private void checkRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<String> availList = new List<string>();
+            
             foreach (HotelRoom room in hotelList)
             {    
                 if ( room.IsAvail == true)
@@ -97,8 +98,32 @@ namespace PRG2_T15_Team5
             availableList.ItemsSource = availList;
         }
 
+        private void addRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> selectedList = new List<string>();
+            HotelRoom clicked = (HotelRoom)availableList.SelectedItem;
+
+            availableList.ItemsSource = availList;
+            //foreach (HotelRoom rm in availableList.SelectedItem)
+
+            if (clicked != null /*&& clicked == StandardRoom*/)
+            {
+                availList.Remove(clicked.ToString());
+                selectedList.Add(clicked.ToString());
+
+                selectedRooms.ItemsSource = selectedList;
+
+                //availableList.ItemsSource = null;
+                //availableList
 
 
 
+            }
+        }
+
+        private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
