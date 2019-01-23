@@ -111,6 +111,8 @@ namespace PRG2_T15_Team5
                 selectedRooms.ItemsSource = selectedList;
                 availList.Remove(clicked);
 
+                // for remove button is oppside
+
                
             }
 
