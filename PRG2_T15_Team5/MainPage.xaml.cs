@@ -34,7 +34,7 @@ namespace PRG2_T15_Team5
         {
             this.InitializeComponent();
             InItData();
-            AddGuest();
+            
 
         }
 
@@ -42,20 +42,20 @@ namespace PRG2_T15_Team5
         {
             // Rooms
             
-            HotelRoom room1 = new StandardRoom("Standard Room", "101", "Single", 90, true, 0);
-            HotelRoom room2 = new StandardRoom("Standard Room", "102", "Single", 90, true, 0);
+            HotelRoom room1 = new StandardRoom("Standard Room", "101", "Single", 90, true, 1);
+            HotelRoom room2 = new StandardRoom("Standard Room", "102", "Single", 90, true, 1);
 
-            HotelRoom room3 = new StandardRoom("Standard Room", "201", "Twin", 110, true, 0);
-            HotelRoom room4 = new StandardRoom("Standard Room", "202", "Twin", 110, true, 0);
-            HotelRoom room5 = new StandardRoom("Standard Room", "203", "Twin", 110, true, 0);
+            HotelRoom room3 = new StandardRoom("Standard Room", "201", "Twin", 110, true, 2);
+            HotelRoom room4 = new StandardRoom("Standard Room", "202", "Twin", 110, true, 2);
+            HotelRoom room5 = new StandardRoom("Standard Room", "203", "Twin", 110, true, 2);
 
-            HotelRoom room6 = new StandardRoom("Standard Room", "301", "Triple", 120, true, 0);
-            HotelRoom room7 = new StandardRoom("Standard Room", "302", "Triple", 120, true, 0);
+            HotelRoom room6 = new StandardRoom("Standard Room", "301", "Triple", 120, true, 3);
+            HotelRoom room7 = new StandardRoom("Standard Room", "302", "Triple", 120, true, 3);
 
-            HotelRoom room8 = new DeluxeRoom("Deluxe Room", "204", "Twins", 140, true, 0);
-            HotelRoom room9 = new DeluxeRoom("Deluxe Room", "205", "Twins", 140, true, 0);
-            HotelRoom room10 = new DeluxeRoom("Deluxe Room", "303", "Triple", 210, true, 0);
-            HotelRoom room11 = new DeluxeRoom("Deluxe Room", "304", "Triple", 210, true, 0);
+            HotelRoom room8 = new DeluxeRoom("Deluxe Room", "204", "Twins", 140, true, 3);
+            HotelRoom room9 = new DeluxeRoom("Deluxe Room", "205", "Twins", 140, true, 3);
+            HotelRoom room10 = new DeluxeRoom("Deluxe Room", "303", "Triple", 210, true, 4);
+            HotelRoom room11 = new DeluxeRoom("Deluxe Room", "304", "Triple", 210, true, 4);
 
             hotelList.Add(room1);
             hotelList.Add(room2);
@@ -69,6 +69,37 @@ namespace PRG2_T15_Team5
             hotelList.Add(room10);
             hotelList.Add(room11);
 
+            Membership member1 = new Membership("GOLD", 280);
+            DateTime start1 = new DateTime(2019, 01, 26);
+            DateTime end1 = new DateTime(2019, 02, 02);
+            Stay stay1 = new Stay(start1, end1);
+            Guest guest1 = new Guest("Amelia", "S1234567A", stay1 , member1, true);
+
+            Membership member2 = new Membership("Ordinary", 0);
+            DateTime start2 = new DateTime(2019, 01, 25);
+            DateTime end2 = new DateTime(2019, 01, 31);
+            Stay stay2 = new Stay(start2, end2);
+            Guest guest2 = new Guest("Bob", "G1234567A", stay2, member2, true);
+
+            Membership member3 = new Membership("Silver", 190);
+            DateTime start3 = new DateTime(2019, 02, 1);
+            DateTime end3 = new DateTime(2019, 02, 06);
+            Stay stay3 = new Stay(start3, end3);
+            Guest guest3 = new Guest("Cody", "G2345678A", stay3, member3, true);
+
+            Membership member4 = new Membership("GOLD", 10);
+            DateTime start4 = new DateTime(2019, 01, 28);
+            DateTime end4 = new DateTime(2019, 02, 10);
+            Stay stay4 = new Stay(start4, end4);
+            Guest guest4 = new Guest("Edda", "S3456789A", stay3, member3, true);
+
+            guestList.Add(guest1);
+            guestList.Add(guest2);
+            guestList.Add(guest3);
+            guestList.Add(guest4);
+
+
+
         }
 
         public void RefreshListViews()
@@ -79,22 +110,59 @@ namespace PRG2_T15_Team5
             selectedRooms.ItemsSource = selectedList;
         }
 
-        public void AddGuest()
-        {
-
-        }
+        
 
         private void checkInBtn_Click(object sender, RoutedEventArgs e)
         {
-            string name, nric, noAdults, noKids;
-            name = guestNameTxt.Text;
-            nric = passportNoTxt.Text;
+            string name, passport, noAdults, noKids;
+            //DateTime checkIn, checkOut;
 
+            name = guestNameTxt.Text;
+            passport = passportNoTxt.Text;
             noAdults = numAdultTxt.Text;
             noKids = numChildTxt.Text;
+
+            var checkIn = checkInDate.Date;
+            DateTime chkIN = checkIn.Value.DateTime;
+            var checkOut = checkOutDate.Date;
+            DateTime chkOUT = checkOut.Value.DateTime;
+
+            //guest.stay.roomlist
+            // use addroom on stay
+
+            if(selectedList != null)
+            {
+                foreach (Guest g in guestList)
+                {
+                    if (name == g.Name)
+                    {
+
+
+                    }
+                }
+            }
+            else
+            {
+                statusText.Text = "Please select a room.";
+            }
+            
+
+
+
+
+
+
+
+
+
+
             //checkIn = checkInDate;
             //checkOut = ;
 
+            // isavail = false
+            // room assigned under a name
+            // remove from selected list
+            // > than a room
         }
 
         private void checkRoomBtn_Click(object sender, RoutedEventArgs e)
@@ -222,11 +290,6 @@ namespace PRG2_T15_Team5
                 availList.Add(clicked);
 
                 RefreshListViews();
-
-
-                
-
-
             }
 
         }
