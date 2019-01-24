@@ -28,6 +28,7 @@ namespace PRG2_T15_Team5
         List<HotelRoom> hotelList = new List<HotelRoom>();
         List<HotelRoom> checkList = new List<HotelRoom>();
         List<HotelRoom> selectedList = new List<HotelRoom>();
+        
 
         public MainPage()
         {
@@ -68,6 +69,14 @@ namespace PRG2_T15_Team5
             hotelList.Add(room10);
             hotelList.Add(room11);
 
+        }
+
+        public void RefreshListViews()
+        {
+            availableList.ItemsSource = null;
+            availableList.ItemsSource = availList;
+            selectedRooms.ItemsSource = null; //this line not used yet but yc used it in the check in button that we have not done
+            selectedRooms.ItemsSource = selectedList;
         }
 
         public void AddGuest()
@@ -111,9 +120,72 @@ namespace PRG2_T15_Team5
                 selectedRooms.ItemsSource = selectedList;
                 availList.Remove(clicked);
 
+                RefreshListViews();
+
                 // for remove button is oppside
 
-               
+                //standard room: wifi + breakfast 
+                if( clicked is StandardRoom)
+                {
+                    StandardRoom room = (StandardRoom)clicked; // DOWNCASTING
+                    if(bed.IsChecked == true)
+                    {
+                        statusText.Text = "Standard Room do not have the add bed feature";
+                        
+                    }
+                    if (wifi.IsChecked == true && breakfast.IsChecked == true)
+                    {
+                        room.RequireWifi = true;
+                        room.RequireBreakfast = true;
+                    }
+                    if(wifi.IsChecked == true && breakfast.IsChecked == false)
+                    {
+                        room.RequireWifi = true;
+                        room.RequireBreakfast = false;
+                    }
+                    if (wifi.IsChecked == false && breakfast.IsChecked == true)
+                    {
+                        room.RequireWifi = false;
+                        room.RequireBreakfast = true;
+                    }
+                    if (wifi.IsChecked == false && breakfast.IsChecked == false)
+                    {
+                        room.RequireWifi = false;
+                        room.RequireBreakfast = false;
+                    }
+                    
+                    
+
+                }
+                if( clicked is DeluxeRoom)
+                {
+                    DeluxeRoom room = (DeluxeRoom)clicked; // DOWNCASTING
+                    if (wifi.IsChecked == true)
+                    {
+                        statusText.Text = "Deluxe Room do not have the add wifi feature";
+
+                    }
+                    if (breakfast.IsChecked == true)
+                    {
+                        statusText.Text = "Standard Room do not have the add breakfast feature";
+
+                    }
+                    if (bed.IsChecked == true)
+                    {
+                        room.AdditionalBed = true;
+
+                    }
+                    if (bed.IsChecked == false)
+                    {
+                        room.AdditionalBed = false;
+
+                    }
+
+                }
+                
+
+
+
             }
 
             //foreach (HotelRoom rm in availableList.SelectedItem)
@@ -136,6 +208,26 @@ namespace PRG2_T15_Team5
 
         private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+        }
+
+        private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem;
+            if (clicked != null)
+            {
+                selectedRooms.ItemsSource = null; //this line i not sure, yc nvr use
+                selectedList.Remove(clicked);
+                selectedRooms.ItemsSource = selectedList;
+                availList.Add(clicked);
+
+                RefreshListViews();
+
+
+                
+
+
+            }
 
         }
     }

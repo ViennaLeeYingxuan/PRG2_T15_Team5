@@ -35,7 +35,7 @@ namespace PRG2_T15_Team5
 
         public override string ToString()
         {
-            return base.ToString() + additionalBed;
+            return base.ToString();
         }
 
 
