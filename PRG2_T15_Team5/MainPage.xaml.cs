@@ -399,9 +399,24 @@ namespace PRG2_T15_Team5
             {
                 if (name == guestList[i].Name && passport == guestList[i].PpNumber)
                 {
-
-                    guestList[i].IsCheckedIn = false;
                     
+                    guestList[i].IsCheckedIn = false;
+                    guestList[i].Hotel = null;
+                    foreach(HotelRoom r in guestList[i].Hotel.RoomList)
+                    {
+                        if (r is StandardRoom)
+                        {
+                            StandardRoom room = (StandardRoom)r;
+                            room.RequireBreakfast = false;
+                            room.RequireWifi = false;
+                        }
+                        else if ( r is DeluxeRoom)
+                        {
+                            DeluxeRoom room = (DeluxeRoom)r;
+                            room.AdditionalBed = false;
+                        }
+                    }
+                   
                     foreach (HotelRoom room in selectedList)
                     {
                        availList.Add(room);
@@ -410,8 +425,10 @@ namespace PRG2_T15_Team5
                     }
                     foreach (HotelRoom room in unavailList)
                     {
-                        room.IsAvail = false;
+                        room.IsAvail = true;
                         selectedList.Remove(room);
+                        //guest.stay=null
+                        //change all the reqire wifi into null
                     }
 
 
