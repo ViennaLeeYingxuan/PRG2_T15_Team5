@@ -34,6 +34,7 @@ namespace PRG2_T15_Team5
         public MainPage()
         {
             this.InitializeComponent();
+            checkInDate.value
             InItData();
             
 
@@ -186,7 +187,6 @@ namespace PRG2_T15_Team5
                 {
                     if (name == guestList[i].Name && passport == guestList[i].PpNumber)
                     {
-
                         guestList[i].IsCheckedIn = true;
                         guestList[i].Hotel = stay;
 
@@ -246,14 +246,24 @@ namespace PRG2_T15_Team5
 
         private void checkRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (HotelRoom room in hotelList)
-            {    
-                if ( room.IsAvail == true)
+            var checkIn = checkInDate.Date;
+            var checkOut = checkOutDate.Date;
+            if(checkIn != null && checkOut != null)
+            {
+                foreach (HotelRoom room in hotelList)
                 {
-                    availList.Add(room);
-                    //availList.Add(room.RoomType + "\t" + room.RoomNumber + "\t" + room.BedConfiguration + "\t" + "$" + room.DailyRate);
+                    if (room.IsAvail == true)
+                    {
+                        availList.Add(room);
+                        //availList.Add(room.RoomType + "\t" + room.RoomNumber + "\t" + room.BedConfiguration + "\t" + "$" + room.DailyRate);
+                    }
                 }
             }
+            else
+            {
+                statusText.Text = "Please input date";
+            }
+           
             availableList.ItemsSource = availList;
         }
 
@@ -376,22 +386,9 @@ namespace PRG2_T15_Team5
             HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem;
             if (clicked != null)
             {
-                /*
-                selectedRooms.ItemsSource = null; //this line i not sure, yc nvr use
-                selectedList.Remove(clicked);
-                selectedRooms.ItemsSource = selectedList;
-                availList.Add(clicked);
-
-                availableList.ItemsSource = null;
-                selectedList.Add(clicked);
-                selectedRooms.ItemsSource = selectedList;
-                availList.Remove(clicked);
-                */
 
                 selectedRooms.ItemsSource = null;
-
                 selectedList.Remove(clicked);
-                //availableList.ItemsSource = availList;
                 selectedRooms.ItemsSource = selectedList;
                 availList.Add(clicked);
 
