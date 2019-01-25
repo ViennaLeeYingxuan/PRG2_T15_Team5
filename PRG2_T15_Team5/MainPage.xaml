@@ -20,7 +20,7 @@
         <TextBox x:Name="numChildTxt" HorizontalAlignment="Left" Margin="331,133,0,0" Text="" VerticalAlignment="Top" Height="38" Width="93"/>
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" Margin="28,190,0,0" VerticalAlignment="Top" Height="45" Width="118" Click="searchBtn_Click"/>
         <Button x:Name="extendBtn" Content="Extend Stay" HorizontalAlignment="Left" Margin="172,190,0,0" VerticalAlignment="Top" Height="45" Width="118"/>
-        <CalendarDatePicker x:Name="checkInDate" HorizontalAlignment="Left" Margin="475,82,0,0" VerticalAlignment="Top" Height="40" Width="179"/>
+        <CalendarDatePicker x:Name="checkInDate" HorizontalAlignment="Left" Margin="475,82,0,0" VerticalAlignment="Top" Height="40" Width="179" />
         <TextBlock x:Name="checkIn" HorizontalAlignment="Left" Margin="479,53,0,0" Text="Check In:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="checkOut" HorizontalAlignment="Left" Margin="674,53,0,0" Text="Check Out:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <CalendarDatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="671,82,0,0" VerticalAlignment="Top" Height="40" Width="179"/>

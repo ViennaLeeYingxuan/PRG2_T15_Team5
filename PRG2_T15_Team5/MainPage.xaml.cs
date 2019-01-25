@@ -34,7 +34,6 @@ namespace PRG2_T15_Team5
         public MainPage()
         {
             this.InitializeComponent();
-            checkInDate.value
             InItData();
             
 
@@ -141,6 +140,7 @@ namespace PRG2_T15_Team5
             noAdults = numAdultTxt.Text;
             noKids = numChildTxt.Text;
 
+           
             var checkIn = checkInDate.Date;
            // DateTime chkIN = checkIn.Value.DateTime;
             var checkOut = checkOutDate.Date;
