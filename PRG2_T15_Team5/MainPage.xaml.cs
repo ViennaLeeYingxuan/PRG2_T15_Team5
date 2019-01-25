@@ -495,6 +495,7 @@ namespace PRG2_T15_Team5
                     if (guest.Membership.Points >= 200)
                     {
                         guest.Membership.Status = "Gold";
+                      
                     }
                     else if (guest.Membership.Points >= 100)
                     {
