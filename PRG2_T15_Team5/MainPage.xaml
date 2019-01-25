@@ -24,7 +24,7 @@
         <TextBlock x:Name="checkIn" HorizontalAlignment="Left" Margin="517,97,0,0" Text="Check In:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="checkOut" HorizontalAlignment="Left" Margin="712,97,0,0" Text="Check Out:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <CalendarDatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="709,126,0,0" VerticalAlignment="Top" Height="40" Width="179"/>
-        <Button x:Name="checkRoomBtn" Content="Check Rooms Available" HorizontalAlignment="Left" Margin="654,190,0,0" VerticalAlignment="Top" Height="43" Width="233" Click="checkRoomBtn_Click"/>
+        <Button x:Name="checkRoomBtn" Content="Check Rooms Available" HorizontalAlignment="Left" Margin="584,168,0,0" VerticalAlignment="Top" Height="43" Width="233" Click="checkRoomBtn_Click"/>
         <TextBlock x:Name="memberStatus" HorizontalAlignment="Left" Margin="1066,22,0,0" Text="Member status:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="pointAvil" HorizontalAlignment="Left" Margin="1066,42,0,0" Text="Points available:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="memberStatusTxt" HorizontalAlignment="Left" Margin="1182,22,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
