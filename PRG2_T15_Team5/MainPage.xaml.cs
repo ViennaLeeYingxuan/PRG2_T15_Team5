@@ -402,6 +402,7 @@ namespace PRG2_T15_Team5
                     
                     guestList[i].IsCheckedIn = false;
                     guestList[i].Hotel = null;
+
                     foreach(HotelRoom r in guestList[i].Hotel.RoomList)
                     {
                         if (r is StandardRoom)
@@ -420,7 +421,7 @@ namespace PRG2_T15_Team5
                     foreach (HotelRoom room in selectedList)
                     {
                        availList.Add(room);
-                        unavailList.Remove(room);
+                       unavailList.Remove(room);
 
                     }
                     foreach (HotelRoom room in unavailList)
@@ -433,7 +434,7 @@ namespace PRG2_T15_Team5
 
 
 
-                    statusText.Text = "Checked in successfully";
+                    statusText.Text = "Checked out successfully";
 
                 }
 
@@ -496,5 +497,9 @@ namespace PRG2_T15_Team5
                 }
             }
         }
+
+        //ADVANCE
+
+
     }
 }
