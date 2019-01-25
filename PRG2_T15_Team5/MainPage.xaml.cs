@@ -202,8 +202,6 @@ namespace PRG2_T15_Team5
                             selectedList.Remove(room);
                         }
 
-
-
                         statusText.Text = "Checked in successfully";
 
                     }
@@ -378,10 +376,26 @@ namespace PRG2_T15_Team5
             HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem;
             if (clicked != null)
             {
+                /*
                 selectedRooms.ItemsSource = null; //this line i not sure, yc nvr use
                 selectedList.Remove(clicked);
                 selectedRooms.ItemsSource = selectedList;
                 availList.Add(clicked);
+
+                availableList.ItemsSource = null;
+                selectedList.Add(clicked);
+                selectedRooms.ItemsSource = selectedList;
+                availList.Remove(clicked);
+                */
+
+                selectedRooms.ItemsSource = null;
+
+                selectedList.Remove(clicked);
+                //availableList.ItemsSource = availList;
+                selectedRooms.ItemsSource = selectedList;
+                availList.Add(clicked);
+
+                
 
                 RefreshListViews();
             }
@@ -432,8 +446,6 @@ namespace PRG2_T15_Team5
                         //change all the reqire wifi into null
                     }
 
-
-
                     statusText.Text = "Checked out successfully";
 
                 }
@@ -480,34 +492,19 @@ namespace PRG2_T15_Team5
 
             foreach (Guest guest in guestList)
             {
-                if (searchName == "" || searchPassportNo == "")
+                if (guest.Name == searchName )
                 {
-                    statusText.Text = "Please enter name and number";
-                }
-                else if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
-                {
-                    statusText.Text = guest.Name + " Room";
+                    display.Text = guest.Name;
                     selectedRooms.ItemsSource = null;
                     selectedRooms.ItemsSource = guest.Hotel.RoomList;
 
-                    //ADVANCE POINTS
-
-                    if (guest.Membership.Points >= 200)
-                    {
-                        guest.Membership.Status = "Gold";
-                      
-                    }
-                    else if (guest.Membership.Points >= 100)
-                    {
-                        guest.Membership.Status = "Silver";
-                    }
-                    else
-                    {
-                        guest.Membership.Status = "Ordinary";
-                    }
-
-                    memberStatusTxt.Text = guest.Membership.Status;
-                    pointAvilTxt.Text = guest.Membership.Points.ToString();
+                    break;
+                }
+                else if ( guest.PpNumber == searchPassportNo)
+                {
+                    display.Text = guest.Name;
+                    selectedRooms.ItemsSource = null;
+                    selectedRooms.ItemsSource = guest.Hotel.RoomList;
 
                     break;
                 }
@@ -518,18 +515,13 @@ namespace PRG2_T15_Team5
                     display.Text = "No customer found";
 
                 }
-
-               
-
             }
-
-            
-            
-
         }
 
-        
+        private void display_SelectionChanged(object sender, RoutedEventArgs e)
+        {
 
+        }
 
     }
 }
