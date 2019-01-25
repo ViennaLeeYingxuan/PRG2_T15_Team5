@@ -480,11 +480,33 @@ namespace PRG2_T15_Team5
 
             foreach (Guest guest in guestList)
             {
-                if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
+                if (searchName == "" || searchPassportNo == "")
                 {
-                    display.Text = guest.Name;
+                    statusText.Text = "Please enter name and number";
+                }
+                else if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
+                {
+                    statusText.Text = guest.Name + " Room";
                     selectedRooms.ItemsSource = null;
                     selectedRooms.ItemsSource = guest.Hotel.RoomList;
+
+                    //ADVANCE POINTS
+
+                    if (guest.Membership.Points >= 200)
+                    {
+                        guest.Membership.Status = "Gold";
+                    }
+                    else if (guest.Membership.Points >= 100)
+                    {
+                        guest.Membership.Status = "Silver";
+                    }
+                    else
+                    {
+                        guest.Membership.Status = "Ordinary";
+                    }
+
+                    memberStatusTxt.Text = guest.Membership.Status;
+                    pointAvilTxt.Text = guest.Membership.Points.ToString();
 
                     break;
                 }
@@ -495,10 +517,17 @@ namespace PRG2_T15_Team5
                     display.Text = "No customer found";
 
                 }
+
+               
+
             }
+
+            
+            
+
         }
 
-        //ADVANCE
+        
 
 
     }
