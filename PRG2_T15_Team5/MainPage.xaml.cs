@@ -193,7 +193,6 @@ namespace PRG2_T15_Team5
                         foreach (HotelRoom room in selectedList)
                         {
                             unavailList.Add(room);
-
                         }
                         foreach (HotelRoom room in unavailList)
                         {
@@ -223,9 +222,6 @@ namespace PRG2_T15_Team5
                             stay.AddRoom(room);
                             selectedList.Remove(room);
                         }
-
-
-
                     }
                     RefreshListViews();
                     RefreshTextBox();
