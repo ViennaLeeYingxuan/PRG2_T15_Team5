@@ -34,11 +34,11 @@ namespace PRG2_T15_Team5
             {
                 charges += 30;
             }
-            if (requireWifi == true)
+            else if (requireWifi == true)
             {
                 charges += 10;
             }
-            if (requireBreakfast == true)
+            else if (requireBreakfast == true)
             {
                 charges += 20;
             }
@@ -47,13 +47,17 @@ namespace PRG2_T15_Team5
                 charges += 0;
             }
             
-            if (BedConfiguration == "Twin")
+            if (BedConfiguration == "Single")
             {
-                DailyRate = 140;
+                DailyRate = 90;
+            }
+            else if (BedConfiguration == "Twin")
+            {
+                DailyRate = 110;
             }
             else
             {
-                DailyRate = 210;
+                DailyRate = 120;
             }
             Stay stay1 = new Stay();
             double cost = DailyRate * stay1.CalculateTotal();

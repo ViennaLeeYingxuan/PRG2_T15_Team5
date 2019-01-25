@@ -180,6 +180,7 @@ namespace PRG2_T15_Team5
 
                 //availList.Remove(clicked);
                 //selectedList.Remove(clicked);
+                bool checker = true;
 
                 Stay stay = new Stay(chkIN, chkOUT);
 
@@ -196,39 +197,39 @@ namespace PRG2_T15_Team5
 
                         }
                         foreach (HotelRoom room in unavailList)
-                        { 
-                            room.IsAvail = false;
-                            //stay.AddRoom(room);
-                            selectedList.Remove(room);
-                           
-                        }
-
-                        statusText.Text = "Checked in successfully";
-
-                    }
-                    else
-                    {
-                        Membership member = new Membership("Ordinary", 0);
-                        Guest guest = new Guest(name, passport, stay, member, true);
-                        guestList.Add(guest);
-
-                        foreach (HotelRoom room in selectedList)
-                        {
-                            unavailList.Add(room);
-
-                        }
-                        foreach (HotelRoom room in unavailList)
                         {
                             room.IsAvail = false;
                             stay.AddRoom(room);
                             selectedList.Remove(room);
-                        }                                            
+
+                        }
+
+                        checker = false;
                     }
-
-                    RefreshListViews();
-                    RefreshTextBox();
-
                 }
+
+                if (checker == true)
+                {
+                    Membership member = new Membership("Ordinary", 0);
+                    Guest guest = new Guest(name, passport, stay, member, true);
+                    guestList.Add(guest);
+
+                    foreach (HotelRoom room in selectedList)
+                    {
+                        unavailList.Add(room);
+
+                    }
+                    foreach (HotelRoom room in unavailList)
+                    {
+                        room.IsAvail = false;
+                        stay.AddRoom(room);
+                        selectedList.Remove(room);
+                    }
+                }
+                statusText.Text = "Checked in successfully";
+                RefreshListViews();
+                RefreshTextBox();
+
             }
             //validate the textbox!!!!!
             
@@ -254,6 +255,7 @@ namespace PRG2_T15_Team5
                     {
                         availList.Add(room);
                         //availList.Add(room.RoomType + "\t" + room.RoomNumber + "\t" + room.BedConfiguration + "\t" + "$" + room.DailyRate);
+                        availableList.ItemsSource = availList;
                     }
                 }
             }
@@ -262,7 +264,7 @@ namespace PRG2_T15_Team5
                 statusText.Text = "Please input date";
             }
            
-            availableList.ItemsSource = availList;
+            //availableList.ItemsSource = availList;
         }
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
@@ -379,7 +381,7 @@ namespace PRG2_T15_Team5
 
         }
 
-        private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
+        private void removeRoomBtn_Click_1(object sender, RoutedEventArgs e)
         {
             HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem;
             if (clicked != null)
@@ -404,6 +406,49 @@ namespace PRG2_T15_Team5
             name = guestNameTxt.Text;
             passport = passportNoTxt.Text;
 
+            foreach (Guest guest in guestList)
+            {
+                if (guest.Name == name || guest.PpNumber == passport)
+                {
+                    foreach (HotelRoom room in guest.Hotel.RoomList)
+                    {
+                        //unavailList.Remove(room);
+                        unavailList.Add(room);
+
+                    }
+
+                    foreach (HotelRoom r in unavailList)
+                    {
+                        r.IsAvail = true;
+
+                        if (r is StandardRoom)
+                        {
+                            StandardRoom room = (StandardRoom)r;
+                            room.RequireBreakfast = false;
+                            room.RequireWifi = false;
+                        }
+                        else if (r is DeluxeRoom)
+                        {
+                            DeluxeRoom room = (DeluxeRoom)r;
+                            room.AdditionalBed = false;
+                        }
+                        
+                        availList.Add(r);
+                        selectedList.Remove(r);
+                            
+                    }
+                    RefreshListViews();
+                    guest.Hotel = null;
+                    guest.IsCheckedIn = false;
+                    statusText.Text = "Checked out successfully";
+                }
+                else
+                {
+                    statusText.Text = "check out unsuccessfully";
+                }
+            }
+           
+            /*
             for (int i = 0; i < guestList.Count; i++)
             {
                 if (name == guestList[i].Name && passport == guestList[i].PpNumber)
@@ -442,8 +487,6 @@ namespace PRG2_T15_Team5
                             room.AdditionalBed = false;
                         }
                     }
-                   
-                    
 
                     statusText.Text = "Checked out successfully";
 
@@ -454,8 +497,8 @@ namespace PRG2_T15_Team5
                 }
                 RefreshListViews();
                 RefreshTextBox();
-            }
-           
+            }*/
+
         }
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
@@ -465,70 +508,71 @@ namespace PRG2_T15_Team5
 
             foreach (Guest guest in guestList)
             {
-                if (guest.Name == searchName)
+                if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
                 {
-                    display.Text = guest.Name;
+                    statusText.Text = guest.Name;
                     selectedRooms.ItemsSource = null;
                     selectedRooms.ItemsSource = guest.Hotel.RoomList;
 
-                    break;
-                }
-                else if (guest.PpNumber == searchPassportNo)
-                {
-                    display.Text = guest.Name;
-                    selectedRooms.ItemsSource = null;
-                    selectedRooms.ItemsSource = guest.Hotel.RoomList;
+                    double difference = (guest.Hotel.CheckOutnDate - guest.Hotel.CheckInDate).Days;
+                    string addrequest = "null";
 
+                    for (int i = 0; i < guest.Hotel.RoomList.Count; i++)
+                    {
+                        double price = 0;
+                        price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
+
+                        foreach (HotelRoom room in guest.Hotel.RoomList)
+                        {
+                            if (room is StandardRoom)
+                            {
+                                StandardRoom standard = (StandardRoom)room;
+                                if (standard.RequireWifi is true)
+                                {
+                                    addrequest = "Wifi";
+                                }
+                                else if (standard.RequireBreakfast is true)
+                                {
+                                    addrequest = "Breakfast";
+                                }
+
+                            }
+                            if (room is DeluxeRoom)
+                            {
+                                DeluxeRoom deluxe = (DeluxeRoom)room;
+                                if (deluxe.AdditionalBed is true)
+                                {
+                                    addrequest = "Additional Bed";
+                                }
+                            }
+                            invoiceTxt.Text = $"Name: {guest.Name} \n Passport Number {guest.PpNumber} \n Number of Nights: {difference} \n Additional Request: {addrequest} \n Total Amount: {price} ";
+                            if (guest.Membership.Points >= 200)
+                            {
+                                memberStatusTxt.Text = "Gold";
+                                pointAvilTxt.Text = guest.Membership.Points.ToString();
+                            }
+                            else if (guest.Membership.Points >= 100)
+                            {
+                                memberStatusTxt.Text = "Silver";
+                                pointAvilTxt.Text = guest.Membership.Points.ToString();
+                            }
+                            else 
+                            {
+                                memberStatusTxt.Text = "Ordinary";
+                                pointAvilTxt.Text = guest.Membership.Points.ToString();
+                            }
+                        }
+                    }
                     break;
                 }
 
                 else
                 {
-
-                    display.Text = "No customer found";
-
+                    statusText.Text = "No customer found";
                 }
 
-                double difference = (guest.Hotel.CheckOutnDate - guest.Hotel.CheckInDate).Days;
-                string addrequest = "";
-
-                for (int i = 0; i < guest.Hotel.RoomList.Count; i++)
-                {
-                    double price = 0;
-                    price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
-
-
-
-                    foreach (HotelRoom room in guest.Hotel.RoomList)
-                    {
-                        if (room is StandardRoom)
-                        {
-                            StandardRoom standard = (StandardRoom)room;
-                            if (standard.RequireWifi is true)
-                            {
-                                addrequest = "Breakfast";
-                            }
-                            else if (standard.RequireBreakfast is true)
-                            {
-                                addrequest = "Wifi";
-                            }
-
-                        }
-                        if (room is DeluxeRoom)
-                        {
-
-                            DeluxeRoom deluxe = (DeluxeRoom)room;
-                            if (deluxe.AdditionalBed is true)
-                            {
-                                addrequest = "Additional Bed";
-                            }
-                        }
-                        invoiceTxt.Text = $"Number of Nights: {difference} Additional Request{addrequest} Total Amount: {price} ";
-                        
-                    }
-                }
-                break;
             }
+
         }
 
         private void display_SelectionChanged(object sender, RoutedEventArgs e)

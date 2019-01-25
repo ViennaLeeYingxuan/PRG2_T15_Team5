@@ -39,7 +39,7 @@
         <CheckBox x:Name="wifi" Content="Add Wifi" HorizontalAlignment="Left" Margin="453,339,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="bed" Content="Add Bed" HorizontalAlignment="Left" Margin="455,386,0,0" VerticalAlignment="Top"/>
         <Button x:Name="addRoomBtn" Content="Add Room" HorizontalAlignment="Left" Margin="453,460,0,0" VerticalAlignment="Top" Height="32" Width="117" Click="addRoomBtn_Click"/>
-        <Button x:Name="removeRoomBtn" Content="Remove Room" HorizontalAlignment="Left" Margin="453,498,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="removeRoomBtn" Content="Remove Room" HorizontalAlignment="Left" Margin="453,498,0,0" VerticalAlignment="Top" Click="removeRoomBtn_Click_1"/>
         <TextBlock x:Name="statusUpdate" HorizontalAlignment="Left" Margin="34,568,0,0" Text="Status update" TextWrapping="Wrap" VerticalAlignment="Top"></TextBlock>
         <ListView x:Name="selectedRooms" HorizontalAlignment="Left" Height="322" Margin="765,255,0,0" VerticalAlignment="Top" Width="420"/>
         <Button x:Name="checkInBtn" Content="Check-In" HorizontalAlignment="Left" Margin="761,600,0,0" VerticalAlignment="Top" Height="56" Width="206" Click="checkInBtn_Click"/>
