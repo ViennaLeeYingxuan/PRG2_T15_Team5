@@ -28,7 +28,8 @@ namespace PRG2_T15_Team5
         List<HotelRoom> hotelList = new List<HotelRoom>();
         List<HotelRoom> checkList = new List<HotelRoom>();
         List<HotelRoom> selectedList = new List<HotelRoom>();
-        
+        List<HotelRoom> unavailList = new List<HotelRoom>();
+
 
         public MainPage()
         {
@@ -70,35 +71,39 @@ namespace PRG2_T15_Team5
             hotelList.Add(room11);
 
             Membership member1 = new Membership("GOLD", 280);
+            Membership member2 = new Membership("Ordinary", 0);
+            Membership member3 = new Membership("Silver", 190);
+            Membership member4 = new Membership("GOLD", 10);
+
             DateTime start1 = new DateTime(2019, 01, 26);
             DateTime end1 = new DateTime(2019, 02, 02);
             Stay stay1 = new Stay(start1, end1);
-            Guest guest1 = new Guest("Amelia", "S1234567A", stay1 , member1, true);
-
-            Membership member2 = new Membership("Ordinary", 0);
+            Guest guest1 = new Guest("AMELIA", "S1234567A", stay1 , member1, true);
+           
             DateTime start2 = new DateTime(2019, 01, 25);
             DateTime end2 = new DateTime(2019, 01, 31);
             Stay stay2 = new Stay(start2, end2);
-            Guest guest2 = new Guest("Bob", "G1234567A", stay2, member2, true);
-
-            Membership member3 = new Membership("Silver", 190);
+            Guest guest2 = new Guest("BOB", "G1234567A", stay2, member2, true);
+            
             DateTime start3 = new DateTime(2019, 02, 1);
             DateTime end3 = new DateTime(2019, 02, 06);
             Stay stay3 = new Stay(start3, end3);
-            Guest guest3 = new Guest("Cody", "G2345678A", stay3, member3, true);
+            Guest guest3 = new Guest("CODY", "G2345678A", stay3, member3, true);
 
-            Membership member4 = new Membership("GOLD", 10);
-            DateTime start4 = new DateTime(2019, 01, 28);
+            DateTime start4 = new DateTime(2019, 01, 28); 
             DateTime end4 = new DateTime(2019, 02, 10);
             Stay stay4 = new Stay(start4, end4);
-            Guest guest4 = new Guest("Edda", "S3456789A", stay3, member3, true);
+            Guest guest4 = new Guest("EDDA", "S3456789A", stay3, member3, true);
 
             guestList.Add(guest1);
             guestList.Add(guest2);
             guestList.Add(guest3);
             guestList.Add(guest4);
 
-
+            stay1.AddRoom(room1);
+            stay2.AddRoom(room7);
+            stay3.AddRoom(room4);
+            stay4.AddRoom(room10);
 
         }
 
@@ -110,6 +115,14 @@ namespace PRG2_T15_Team5
             selectedRooms.ItemsSource = selectedList;
         }
 
+        public void RefreshTextBox()
+        {
+            guestNameTxt.Text = "";
+            passportNoTxt.Text = "";
+            numAdultTxt.Text = "";
+            numChildTxt.Text = "";
+        }
+
         
 
         private void checkInBtn_Click(object sender, RoutedEventArgs e)
@@ -117,44 +130,102 @@ namespace PRG2_T15_Team5
             string name, passport, noAdults, noKids;
             //DateTime checkIn, checkOut;
 
-            name = guestNameTxt.Text;
-            passport = passportNoTxt.Text;
+            name = guestNameTxt.Text.ToUpper();
+            passport = passportNoTxt.Text.ToUpper();
             noAdults = numAdultTxt.Text;
             noKids = numChildTxt.Text;
 
             var checkIn = checkInDate.Date;
-            DateTime chkIN = checkIn.Value.DateTime;
+           // DateTime chkIN = checkIn.Value.DateTime;
             var checkOut = checkOutDate.Date;
-            DateTime chkOUT = checkOut.Value.DateTime;
+           // DateTime chkOUT = checkOut.Value.DateTime;
 
-            //guest.stay.roomlist
+            //guest.stay.roomlist 
             // use addroom on stay
 
-            if(selectedList != null)
+
+            if (name == "" || passport == "")
             {
-                foreach (Guest g in guestList)
-                {
-                    if (name == g.Name)
-                    {
-
-
-                    }
-                }
+                statusText.Text = "Please enter name and passport number";
+            }
+            else if (noAdults == "" || noKids == "")
+            {
+                statusText.Text = "Please enter Number of pax";
+            }
+            else if (selectedList == null)
+            {
+                statusText.Text = "Please select room.";
+            }
+            else if (checkIn == null || checkOut == null)
+            {
+                statusText.Text = "Please enter date.";
             }
             else
             {
-                statusText.Text = "Please select a room.";
+                DateTime chkIN = checkIn.Value.DateTime;
+                DateTime chkOUT = checkOut.Value.DateTime;
+
+                //HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem ;
+                
+                //availList.Remove(clicked);
+                //selectedList.Remove(clicked);
+
+                Stay stay = new Stay(chkIN, chkOUT);
+
+                for(int i=0; i < guestList.Count; i++)
+                {
+                    if (name == guestList[i].Name && passport == guestList[i].PpNumber)
+                    {
+                        
+                        guestList[i].IsCheckedIn = true;
+                        guestList[i].Hotel = stay;
+                        
+                        foreach( HotelRoom room in selectedList)
+                        {
+                            unavailList.Add(room);
+                            
+                        }
+                        foreach( HotelRoom room in unavailList)
+                        {
+                            room.IsAvail = false;
+                            stay.AddRoom(room);
+                            selectedList.Remove(room);
+                        }
+
+                        
+                        
+                        statusText.Text = "Checked in successfully";
+
+                    }
+                    else
+                    {
+                        
+                        Membership member = new Membership("Ordinary", 0);
+                        Guest guest = new Guest(name, passport, stay, member, true);
+                        guestList.Add(guest);
+
+                        foreach (HotelRoom room in selectedList)
+                        {
+                            unavailList.Add(room);
+
+                        }
+                        foreach (HotelRoom room in unavailList)
+                        {
+                            room.IsAvail = false;
+                            stay.AddRoom(room);
+                            selectedList.Remove(room);
+                        }
+
+                        
+
+                    }
+                    RefreshListViews();
+                    RefreshTextBox();
+
+                }
             }
+            //validate the textbox!!!!!
             
-
-
-
-
-
-
-
-
-
 
             //checkIn = checkInDate;
             //checkOut = ;
@@ -183,48 +254,60 @@ namespace PRG2_T15_Team5
             HotelRoom clicked = (HotelRoom)availableList.SelectedItem;
             if (clicked != null)
             {
-                availableList.ItemsSource = null;
+                availableList.ItemsSource = null; 
                 selectedList.Add(clicked);
                 selectedRooms.ItemsSource = selectedList;
-                availList.Remove(clicked);
+                //availList.Remove(clicked);
 
                 RefreshListViews();
+
 
                 // for remove button is oppside
 
                 //standard room: wifi + breakfast 
-                if( clicked is StandardRoom)
+                if ( clicked is StandardRoom)
                 {
                     StandardRoom room = (StandardRoom)clicked; // DOWNCASTING
                     if(bed.IsChecked == true)
                     {
                         statusText.Text = "Standard Room do not have the add bed feature";
-                        
-                    }
-                    if (wifi.IsChecked == true && breakfast.IsChecked == true)
-                    {
-                        room.RequireWifi = true;
-                        room.RequireBreakfast = true;
-                    }
-                    if(wifi.IsChecked == true && breakfast.IsChecked == false)
-                    {
-                        room.RequireWifi = true;
-                        room.RequireBreakfast = false;
-                    }
-                    if (wifi.IsChecked == false && breakfast.IsChecked == true)
-                    {
-                        room.RequireWifi = false;
-                        room.RequireBreakfast = true;
-                    }
-                    if (wifi.IsChecked == false && breakfast.IsChecked == false)
-                    {
-                        room.RequireWifi = false;
-                        room.RequireBreakfast = false;
-                    }
-                    
-                    
 
+                        selectedList.Remove(clicked);
+                        //availList.Add(clicked);
+                        selectedRooms.ItemsSource = selectedList;
+
+                    }
+                    else if (wifi.IsChecked == true && breakfast.IsChecked == true)
+                    {
+                        room.RequireWifi = true;
+                        room.RequireBreakfast = true;
+
+                        availList.Remove(clicked);
+                    }
+                    else if(wifi.IsChecked == true && breakfast.IsChecked == false)
+                    {
+                        room.RequireWifi = true;
+                        room.RequireBreakfast = false;
+
+                        availList.Remove(clicked);
+                    }
+                    else if (wifi.IsChecked == false && breakfast.IsChecked == true)
+                    {
+                        room.RequireWifi = false;
+                        room.RequireBreakfast = true;
+
+                        availList.Remove(clicked);
+                    }
+                    else if (wifi.IsChecked == false && breakfast.IsChecked == false)
+                    {
+                        room.RequireWifi = false;
+                        room.RequireBreakfast = false;
+
+                        availList.Remove(clicked);
+
+                    }                   
                 }
+
                 if( clicked is DeluxeRoom)
                 {
                     DeluxeRoom room = (DeluxeRoom)clicked; // DOWNCASTING
@@ -232,28 +315,33 @@ namespace PRG2_T15_Team5
                     {
                         statusText.Text = "Deluxe Room do not have the add wifi feature";
 
+                        selectedList.Remove(clicked);
+                        //availList.Add(clicked);
+                        selectedRooms.ItemsSource = selectedList;
                     }
                     if (breakfast.IsChecked == true)
                     {
                         statusText.Text = "Standard Room do not have the add breakfast feature";
 
+                        selectedList.Remove(clicked);
+                        //availList.Add(clicked);
+                        selectedRooms.ItemsSource = selectedList;
                     }
                     if (bed.IsChecked == true)
                     {
                         room.AdditionalBed = true;
 
+                        availList.Remove(clicked);
                     }
                     if (bed.IsChecked == false)
                     {
                         room.AdditionalBed = false;
 
+                        availList.Remove(clicked);
                     }
 
                 }
-                
-
-
-
+                RefreshListViews();
             }
 
             //foreach (HotelRoom rm in availableList.SelectedItem)
@@ -268,13 +356,9 @@ namespace PRG2_T15_Team5
                 //availableList.ItemsSource = null;
                 //availableList
 
-
-
-
-         
         }
 
-        private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e) // Press wrong
         {
 
         }
@@ -291,6 +375,45 @@ namespace PRG2_T15_Team5
 
                 RefreshListViews();
             }
+
+        }
+
+        private void checkOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string name, passport;
+
+            name = guestNameTxt.Text;
+            passport = passportNoTxt.Text;
+
+            foreach (Guest g in guestList)
+            {
+                if (passport == g.PpNumber)
+                {
+                    if(g.IsCheckedIn == false)
+                    {
+                        statusText.Text = "You have not checked in";
+                    }
+                    else
+                    {
+                        g.IsCheckedIn = false;
+                        //g.Hotel.RoomList.Remove();
+
+                    }        
+
+                }
+                /*else
+                {
+
+                    stay.AddRoom(clicked);
+
+                    Membership member = new Membership("Ordinary", 0);
+                    Guest guest = new Guest(name, passport, stay, member, true);
+                    guestList.Add(guest);
+
+                }*/
+            }
+
+
 
         }
     }
