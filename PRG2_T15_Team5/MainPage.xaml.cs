@@ -121,6 +121,11 @@ namespace PRG2_T15_Team5
             passportNoTxt.Text = "";
             numAdultTxt.Text = "";
             numChildTxt.Text = "";
+
+            
+
+
+
         }
 
         
@@ -130,15 +135,15 @@ namespace PRG2_T15_Team5
             string name, passport, noAdults, noKids;
             //DateTime checkIn, checkOut;
 
-            name = guestNameTxt.Text.ToUpper();
-            passport = passportNoTxt.Text.ToUpper();
+            name = guestNameTxt.Text.ToUpper().Trim();
+            passport = passportNoTxt.Text.ToUpper().Trim();
             noAdults = numAdultTxt.Text;
             noKids = numChildTxt.Text;
 
             var checkIn = checkInDate.Date;
            // DateTime chkIN = checkIn.Value.DateTime;
             var checkOut = checkOutDate.Date;
-           // DateTime chkOUT = checkOut.Value.DateTime;
+            // DateTime chkOUT = checkOut.Value.DateTime;
 
             //guest.stay.roomlist 
             // use addroom on stay
@@ -148,6 +153,11 @@ namespace PRG2_T15_Team5
             {
                 statusText.Text = "Please enter name and passport number";
             }
+            else if (passport.Length != 9)
+            {
+                statusText.Text = "Please enter correct passport number";
+            }
+
             else if (noAdults == "" || noKids == "")
             {
                 statusText.Text = "Please enter Number of pax";
@@ -166,40 +176,40 @@ namespace PRG2_T15_Team5
                 DateTime chkOUT = checkOut.Value.DateTime;
 
                 //HotelRoom clicked = (HotelRoom)selectedRooms.SelectedItem ;
-                
+
                 //availList.Remove(clicked);
                 //selectedList.Remove(clicked);
 
                 Stay stay = new Stay(chkIN, chkOUT);
 
-                for(int i=0; i < guestList.Count; i++)
+                for (int i = 0; i < guestList.Count; i++)
                 {
                     if (name == guestList[i].Name && passport == guestList[i].PpNumber)
                     {
-                        
+
                         guestList[i].IsCheckedIn = true;
                         guestList[i].Hotel = stay;
-                        
-                        foreach( HotelRoom room in selectedList)
+
+                        foreach (HotelRoom room in selectedList)
                         {
                             unavailList.Add(room);
-                            
+
                         }
-                        foreach( HotelRoom room in unavailList)
+                        foreach (HotelRoom room in unavailList)
                         {
                             room.IsAvail = false;
                             stay.AddRoom(room);
                             selectedList.Remove(room);
                         }
 
-                        
-                        
+
+
                         statusText.Text = "Checked in successfully";
 
                     }
                     else
                     {
-                        
+
                         Membership member = new Membership("Ordinary", 0);
                         Guest guest = new Guest(name, passport, stay, member, true);
                         guestList.Add(guest);
@@ -216,7 +226,7 @@ namespace PRG2_T15_Team5
                             selectedList.Remove(room);
                         }
 
-                        
+
 
                     }
                     RefreshListViews();
@@ -385,36 +395,89 @@ namespace PRG2_T15_Team5
             name = guestNameTxt.Text;
             passport = passportNoTxt.Text;
 
-            foreach (Guest g in guestList)
+            for (int i = 0; i < guestList.Count; i++)
             {
-                if (passport == g.PpNumber)
+                if (name == guestList[i].Name && passport == guestList[i].PpNumber)
                 {
-                    if(g.IsCheckedIn == false)
+
+                    guestList[i].IsCheckedIn = false;
+                    
+                    foreach (HotelRoom room in selectedList)
                     {
-                        statusText.Text = "You have not checked in";
+                       availList.Add(room);
+                        unavailList.Remove(room);
+
+                    }
+                    foreach (HotelRoom room in unavailList)
+                    {
+                        room.IsAvail = false;
+                        selectedList.Remove(room);
+                    }
+
+
+
+                    statusText.Text = "Checked in successfully";
+
+                }
+
+
+
+                /*
+                foreach (Guest g in guestList)
+                {
+                    if (passport == g.PpNumber)
+                    {
+                        if(g.IsCheckedIn == false)
+                        {
+                            statusText.Text = "You have not checked in";
+                        }
+                        else
+                        {
+                            g.IsCheckedIn = false;
+                            //g.Hotel.RoomList.Remove();
+
+                        }        
+
                     }
                     else
                     {
-                        g.IsCheckedIn = false;
-                        //g.Hotel.RoomList.Remove();
 
-                    }        
+                        stay.AddRoom(clicked);
 
-                }
-                /*else
-                {
+                        Membership member = new Membership("Ordinary", 0);
+                        Guest guest = new Guest(name, passport, stay, member, true);
+                        guestList.Add(guest);
 
-                    stay.AddRoom(clicked);
-
-                    Membership member = new Membership("Ordinary", 0);
-                    Guest guest = new Guest(name, passport, stay, member, true);
-                    guestList.Add(guest);
-
-                }*/
+                    }*/
             }
 
 
 
+        }
+
+        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string searchName = guestNameTxt.Text.ToUpper().Trim();
+            string searchPassportNo = passportNoTxt.Text.ToUpper().Trim();
+
+            foreach (Guest guest in guestList)
+            {
+                if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
+                {
+                    display.Text = guest.Name;
+                    selectedRooms.ItemsSource = null;
+                    selectedRooms.ItemsSource = guest.Hotel.RoomList;
+
+                    break;
+                }
+
+                else
+                {
+
+                    display.Text = "No customer found";
+
+                }
+            }
         }
     }
 }
