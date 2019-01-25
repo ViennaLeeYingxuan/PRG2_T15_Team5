@@ -47,7 +47,7 @@
         <Button x:Name="checkOutBtn" Content="Check-Out" HorizontalAlignment="Left" Margin="981,600,0,0" VerticalAlignment="Top" Height="56" Width="206" Click="checkOutBtn_Click"/>
         <TextBlock x:Name="roomSelected" HorizontalAlignment="Left" Margin="770,234,0,0" Text="Rooms Selected:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="statusText" HorizontalAlignment="Left" Margin="581,544,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="display" Margin="331,186,1014,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="47"/>
+        <TextBlock x:Name="display" Margin="331,186,1014,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Height="47" SelectionChanged="display_SelectionChanged"/>
 
     </Grid>
 </Page>

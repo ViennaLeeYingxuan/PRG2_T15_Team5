@@ -498,6 +498,11 @@ namespace PRG2_T15_Team5
             }
         }
 
+        private void display_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //ADVANCE
 
 
