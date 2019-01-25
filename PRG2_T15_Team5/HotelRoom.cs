@@ -64,10 +64,7 @@ namespace PRG2_T15_Team5
             noOfOccupants = o;
         }
 
-        public abstract double CalculateCharges()
-        {
-
-        }
+        public abstract double CalculateCharges();
 
         public override string ToString()
         {

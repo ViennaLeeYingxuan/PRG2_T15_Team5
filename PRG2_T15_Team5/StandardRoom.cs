@@ -46,8 +46,20 @@ namespace PRG2_T15_Team5
             {
                 charges += 0;
             }
-            return charges;
+            
+            if (BedConfiguration == "Twin")
+            {
+                DailyRate = 140;
+            }
+            else
+            {
+                DailyRate = 210;
+            }
+            Stay stay1 = new Stay();
+            double cost = DailyRate * stay1.CalculateTotal();
+            return cost;
         }
+
 
         public override string ToString()
         {

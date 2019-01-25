@@ -42,19 +42,17 @@ namespace PRG2_T15_Team5
             roomList.Add(r);
         }
 
-        /*
+        
         public double CalculateTotal()
         {
-            double total = 0;
-            double days = 0;
-            (checkOutDate.Date - checkInDate.Date).Days = days;
-
-            //if (HotelRoom r == 
-            // use a for lopp
-
+            RoomList.Count();
+            string days = (checkOutDate - checkInDate).TotalDays.ToString();
+            int date = Convert.ToInt32(days);
+            int final = RoomList.Count() * date;
+            return final;
             
         }
-        */
+        
 
     }
 }
