@@ -31,7 +31,12 @@ namespace PRG2_T15_Team5
             status = s;
             points = p;
         }
-        
+
+        public override string ToString()
+        {
+            return "Status: " + status + "\n" + "Points " + points;
+        }
+
         //public double EarnPoints ()
         //{ }
 

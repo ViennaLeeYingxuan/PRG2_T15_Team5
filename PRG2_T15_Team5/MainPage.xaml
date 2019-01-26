@@ -19,7 +19,7 @@
         <TextBlock x:Name="numChild" HorizontalAlignment="Left" Margin="331,106,0,0" Text="No. Of Children:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="numChildTxt" HorizontalAlignment="Left" Margin="331,133,0,0" Text="" VerticalAlignment="Top" Height="38" Width="93"/>
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" Margin="28,190,0,0" VerticalAlignment="Top" Height="45" Width="118" Click="searchBtn_Click"/>
-        <Button x:Name="extendBtn" Content="Extend Stay" HorizontalAlignment="Left" Margin="172,190,0,0" VerticalAlignment="Top" Height="45" Width="118"/>
+        <Button x:Name="extendBtn" Content="Extend Stay" HorizontalAlignment="Left" Margin="172,190,0,0" VerticalAlignment="Top" Height="45" Width="118" Click="extendBtn_Click"/>
         <CalendarDatePicker x:Name="checkInDate" HorizontalAlignment="Left" Margin="475,82,0,0" VerticalAlignment="Top" Height="40" Width="179" />
         <TextBlock x:Name="checkIn" HorizontalAlignment="Left" Margin="479,53,0,0" Text="Check In:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="checkOut" HorizontalAlignment="Left" Margin="674,53,0,0" Text="Check Out:" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -31,7 +31,7 @@
         <TextBlock x:Name="pointAvilTxt" HorizontalAlignment="Left" Margin="1028,28,0,0" Text="hi" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="avilRooms" HorizontalAlignment="Left" Margin="30,244,0,0" Text="Available rooms:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="redeemPoint" HorizontalAlignment="Left" Margin="896,66,0,0" Text="" VerticalAlignment="Top" Height="38" Width="113"/>
-        <Button x:Name="redeemPointBtn" Content="Redeem points" HorizontalAlignment="Left" Margin="1021,66,0,0" VerticalAlignment="Top" Height="38" Width="133"/>
+        <Button x:Name="redeemPointBtn" Content="Redeem points" HorizontalAlignment="Left" Margin="1021,66,0,0" VerticalAlignment="Top" Height="38" Width="133" Click="redeemPointBtn_Click"/>
         <TextBlock x:Name="invoice" HorizontalAlignment="Left" Margin="898,118,0,0" Text="Invoice:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="invoiceTxt" HorizontalAlignment="Left" Margin="955,120,0,0" Text="hi" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="327"/>
         <ListView x:Name="availableList" HorizontalAlignment="Left" Height="289" Margin="30,265,0,0" VerticalAlignment="Top" Width="420" SelectionChanged="availableList_SelectionChanged"/>
