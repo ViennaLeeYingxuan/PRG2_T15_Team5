@@ -137,7 +137,7 @@ namespace PRG2_T15_Team5
             passport = passportNoTxt.Text.ToUpper().Trim();
             noAdults = numAdultTxt.Text;
             noKids = numChildTxt.Text;
-            double capacity = 0;
+           // double capacity = 0;
 
             var checkIn = checkInDate.Date;
            // DateTime chkIN = checkIn.Value.DateTime;
@@ -227,7 +227,7 @@ namespace PRG2_T15_Team5
                 statusText.Text = "Checked in successfully";
                 RefreshListViews();
                 RefreshTextBox();
-
+                unavailList.Clear(); // ziwin ask me put one, it solves one of our prob
             }
             //validate the textbox!!!!!
             
@@ -251,7 +251,7 @@ namespace PRG2_T15_Team5
             {
                 int adultno = Convert.ToInt32(adult);
                 int kidno = Convert.ToInt32(kid);
-                pax = adultno * 1 + kidno * 0.5; //check nats code idk what does his human size do
+               // pax = adultno * 1 + kidno * 0.5; //check nats code idk what does his human size do
 
                 var checkIn = checkInDate.Date;
                 var checkOut = checkOutDate.Date;
@@ -481,7 +481,8 @@ namespace PRG2_T15_Team5
                 //ADVANCE
                 
                 guest.Hotel = null;
-                guest.Membership.Points += (int)price / 10;
+
+                //guest.Membership.Points += (int)price / 10;
                 if (guest.Membership.Points >= 100 && guest.Membership.Status != "Silver")
                 {
                     guest.Membership.Status = "Silver";
@@ -524,7 +525,8 @@ namespace PRG2_T15_Team5
                     for (int i = 0; i < guest.Hotel.RoomList.Count; i++)
                     {
                         double price = 0;
-                        price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
+                        //price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
+                        
 
                         foreach (HotelRoom room in guest.Hotel.RoomList)
                         {
@@ -540,6 +542,8 @@ namespace PRG2_T15_Team5
                                     addrequest = "Breakfast";
                                 }
 
+                                price += (room.CalculateCharges() * difference);
+
                             }
                             if (room is DeluxeRoom)
                             {
@@ -548,8 +552,11 @@ namespace PRG2_T15_Team5
                                 {
                                     addrequest = "Additional Bed";
                                 }
+
+                                price += (room.CalculateCharges() * difference);
                             }
-                            invoiceTxt.Text = $"Name: {guest.Name} \n Passport Number {guest.PpNumber} \n Number of Nights: {difference} \n Additional Request: {addrequest} \n Total Amount: {price} ";
+
+                            invoiceTxt.Text = $"Name: {guest.Name} \n Passport Number {guest.PpNumber} \n Number of Nights: {difference} \n Additional Request: {addrequest} \n Total Amount: $ {price} ";
 
                             if (guest.Membership.Points >= 200)
                             {
@@ -630,7 +637,7 @@ namespace PRG2_T15_Team5
                                 DeluxeRoom rm = (DeluxeRoom)room;
                                 if(rm.AdditionalBed == true)
                                 {
-                                    display += "additional bed\n"
+                                    display += "additional bed\n";
                                 }
                             }
                         }
