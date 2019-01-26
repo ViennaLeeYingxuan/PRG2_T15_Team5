@@ -60,7 +60,7 @@ namespace PRG2_T15_Team5
                 DailyRate = 120;
             }
             Stay stay1 = new Stay();
-            double cost = DailyRate * stay1.CalculateTotal();
+            double cost = (DailyRate * stay1.CalculateTotal() ) + charges;
             return cost;
         }
 
