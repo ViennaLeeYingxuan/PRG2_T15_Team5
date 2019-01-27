@@ -486,22 +486,28 @@ namespace PRG2_T15_Team5
                 if (guest.Membership.Points >= 100 && guest.Membership.Status != "Silver")
                 {
                     guest.Membership.Status = "Silver";
+                    
                 }
-                if (guest.Membership.Points >= 200)
+                else if (guest.Membership.Points >= 200)
                 {
                     guest.Membership.Status = "Gold";
                 }
+                else
+                {
+                    guest.Membership.Status = "Ordinary";
+                }
 
                 //ADVANCE
-                
+                /*
                 if(redeemPoint.Text == null)
                 {
                     redeemPoint.Text = "0";
                 }
+
                 string redeem = redeemPoint.Text;
                 int points = Convert.ToInt32(redeem);
                 guest.Membership.Points -= points;
-                
+                */
             }
 
 
