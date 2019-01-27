@@ -126,6 +126,11 @@ namespace PRG2_T15_Team5
 
         }
 
+        public void RefreshInvoice()
+        {
+            invoiceTxt.Text = "";
+        }
+
         
 
         private void checkInBtn_Click(object sender, RoutedEventArgs e)
@@ -415,13 +420,14 @@ namespace PRG2_T15_Team5
 
         private void checkOutBtn_Click(object sender, RoutedEventArgs e)
         {
-            string Name = guestNameTxt.Text.ToUpper().Trim();
-            string PassportNo = passportNoTxt.Text.ToUpper().Trim();
+            
+            string name = guestNameTxt.Text.ToUpper().Trim();
+            string passportNo = passportNoTxt.Text.ToUpper().Trim();
 
             foreach (Guest guest in guestList)
             {
 
-                if (guest.Name == Name || guest.PpNumber == PassportNo)
+                if (guest.Name == name )
                 {
                     statusText.Text = guest.Name;
                     selectedRooms.ItemsSource = null;
@@ -462,23 +468,18 @@ namespace PRG2_T15_Team5
                         unavailList.Remove(r);
                         availableList.ItemsSource = availList;
                         RefreshListViews();
+                        RefreshInvoice();
+                        
 
                         statusText.Text = "Checked out successfully";
-
+                        
                     }
-
+                    break;
                 }
-                
-                else if (guest.PpNumber != PassportNo)
+                else
                 {
-                    statusText.Text = "passport number not found";
+                    statusText.Text = "No guest exist";
                 }
-                else if (guest.Name != Name)
-                {
-                    statusText.Text = "name not found";
-                }
-
-
 
                 //ADVANCE
 
@@ -511,7 +512,6 @@ namespace PRG2_T15_Team5
                 guest.Membership.Points -= points;
                 */
             }
-
 
         }
 
