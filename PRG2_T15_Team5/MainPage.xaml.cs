@@ -256,7 +256,7 @@ namespace PRG2_T15_Team5
             {
                 int adultno = Convert.ToInt32(adult);
                 int kidno = Convert.ToInt32(kid);
-               // pax = adultno * 1 + kidno * 0.5; //check nats code idk what does his human size do
+                //pax = adultno * 1 + kidno * 0.5; //check nats code idk what does his human size do
 
                 var checkIn = checkInDate.Date;
                 var checkOut = checkOutDate.Date;
@@ -393,6 +393,7 @@ namespace PRG2_T15_Team5
                 //availableList.ItemsSource = null;
                 //availableList
 
+
         }
 
         private void availableList_SelectionChanged(object sender, SelectionChangedEventArgs e) // Press wrong
@@ -484,6 +485,26 @@ namespace PRG2_T15_Team5
                 //ADVANCE
 
                 guest.Hotel = null;
+                double difference = (guest.Hotel.CheckOutnDate - guest.Hotel.CheckInDate).Days;
+                
+                for (int i = 0; i < guest.Hotel.RoomList.Count; i++)   
+                {
+                    double price = 0;
+
+                    foreach (HotelRoom room in guest.Hotel.RoomList)
+                    {
+                        if (room is StandardRoom)
+                        {
+                            price += (room.CalculateCharges() * difference);
+                            guest.Membership.Points += (int)price / 10;
+                        }
+                        if(room is DeluxeRoom)
+                        {
+                            price += (room.CalculateCharges() * difference);
+                            guest.Membership.Points += (int)price / 10;
+                        }
+                    }
+                }
 
                 //guest.Membership.Points += (int)price / 10;
                 if (guest.Membership.Points >= 100 && guest.Membership.Status != "Silver")
@@ -501,7 +522,7 @@ namespace PRG2_T15_Team5
                 }
 
                 //ADVANCE
-                /*
+                
                 if(redeemPoint.Text == null)
                 {
                     redeemPoint.Text = "0";
@@ -510,7 +531,7 @@ namespace PRG2_T15_Team5
                 string redeem = redeemPoint.Text;
                 int points = Convert.ToInt32(redeem);
                 guest.Membership.Points -= points;
-                */
+                
             }
 
         }
@@ -670,15 +691,26 @@ namespace PRG2_T15_Team5
         {
             string name = guestName.Text;
             string passport = passportNoTxt.Text;
+
             foreach(Guest guest in guestList)
             {
-                if (guest.PpNumber == passport || guest.PpNumber == name)
+                if (passport == guest.PpNumber || name == guest.Name)
                 {
                     guest.Hotel.CheckOutnDate = guest.Hotel.CheckOutnDate.AddDays(1);
-                    statusText.Text = guest.ToString();
+                    statusText.Text = "You just extended your stay by 1 day";
 
                     break;
                 }
+                /*
+                else if(guest.PpNumber != passport)
+                {
+                    statusText.Text = "Invalid passport number.";
+                }
+                else if(guest.Name != name)
+                {
+                    statusText.Text = "Incorrect name";
+                }
+                */
             }
 
         }
