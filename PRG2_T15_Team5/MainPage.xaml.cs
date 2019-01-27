@@ -103,7 +103,7 @@ namespace PRG2_T15_Team5
             guestList.Add(guest4);
 
             stay1.AddRoom(room1);
-            stay2.AddRoom(room7);
+             stay2.AddRoom(room7);
             stay3.AddRoom(room4);
             stay4.AddRoom(room10);
 
@@ -420,20 +420,13 @@ namespace PRG2_T15_Team5
 
             foreach (Guest guest in guestList)
             {
-                if (guest.Name != Name)
-                {
-                    statusText.Text = "name not found";
-                }
-                else if ( guest.PpNumber != PassportNo)
-                {
-                    statusText.Text = "passport number not found";
-                }
-                else if (guest.Name == Name || guest.PpNumber == PassportNo)
+
+                if (guest.Name == Name || guest.PpNumber == PassportNo)
                 {
                     statusText.Text = guest.Name;
                     selectedRooms.ItemsSource = null;
                     selectedRooms.ItemsSource = guest.Hotel.RoomList;
-                    
+
                     foreach (HotelRoom room in guest.Hotel.RoomList)
                     {
                         //unavailList.Remove(room);
@@ -456,10 +449,10 @@ namespace PRG2_T15_Team5
                             DeluxeRoom room = (DeluxeRoom)r;
                             room.AdditionalBed = false;
                         }
-                        
-                        
+
+
                         //resetList.Remove(r);
-                        
+
                         guest.Hotel = null;
                         guest.IsCheckedIn = false;
 
@@ -473,13 +466,22 @@ namespace PRG2_T15_Team5
                         statusText.Text = "Checked out successfully";
 
                     }
-                    
-
-
 
                 }
-                //ADVANCE
                 
+                else if (guest.PpNumber != PassportNo)
+                {
+                    statusText.Text = "passport number not found";
+                }
+                else if (guest.Name != Name)
+                {
+                    statusText.Text = "name not found";
+                }
+
+
+
+                //ADVANCE
+
                 guest.Hotel = null;
 
                 //guest.Membership.Points += (int)price / 10;
@@ -522,63 +524,70 @@ namespace PRG2_T15_Team5
             {
                 if (guest.Name == searchName || guest.PpNumber == searchPassportNo)
                 {
-                    statusText.Text = guest.Name;
-                    selectedRooms.ItemsSource = null;
-                    selectedRooms.ItemsSource = guest.Hotel.RoomList;
-
-                    double difference = (guest.Hotel.CheckOutnDate - guest.Hotel.CheckInDate).Days;
-                    string addrequest = "null";
-
-                    for (int i = 0; i < guest.Hotel.RoomList.Count; i++)
+                    if (guest.IsCheckedIn == false)
                     {
-                        double price = 0;
-                        //price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
-                        
+                        statusText.Text = "You have not checked in any rooms";
+                    }
+                    else
+                    {
+                        statusText.Text = guest.Name;
+                        selectedRooms.ItemsSource = null;
+                        selectedRooms.ItemsSource = guest.Hotel.RoomList;
 
-                        foreach (HotelRoom room in guest.Hotel.RoomList)
+                        double difference = (guest.Hotel.CheckOutnDate - guest.Hotel.CheckInDate).Days;
+                        string addrequest = "null";
+
+                        for (int i = 0; i < guest.Hotel.RoomList.Count; i++)
                         {
-                            if (room is StandardRoom)
+                            double price = 0;
+                            //price += guest.Hotel.RoomList[i].CalculateCharges() * difference;
+
+
+                            foreach (HotelRoom room in guest.Hotel.RoomList)
                             {
-                                StandardRoom standard = (StandardRoom)room;
-                                if (standard.RequireWifi is true)
+                                if (room is StandardRoom)
                                 {
-                                    addrequest = "Wifi";
+                                    StandardRoom standard = (StandardRoom)room;
+                                    if (standard.RequireWifi is true)
+                                    {
+                                        addrequest = "Wifi";
+                                    }
+                                    else if (standard.RequireBreakfast is true)
+                                    {
+                                        addrequest = "Breakfast";
+                                    }
+
+                                    price += (room.CalculateCharges() * difference);
+
                                 }
-                                else if (standard.RequireBreakfast is true)
+                                if (room is DeluxeRoom)
                                 {
-                                    addrequest = "Breakfast";
+                                    DeluxeRoom deluxe = (DeluxeRoom)room;
+                                    if (deluxe.AdditionalBed is true)
+                                    {
+                                        addrequest = "Additional Bed";
+                                    }
+
+                                    price += (room.CalculateCharges() * difference);
                                 }
 
-                                price += (room.CalculateCharges() * difference);
+                                invoiceTxt.Text = $"Name: {guest.Name} \n Passport Number {guest.PpNumber} \n Number of Nights: {difference} \n Additional Request: {addrequest} \n Total Amount: $ {price} ";
 
-                            }
-                            if (room is DeluxeRoom)
-                            {
-                                DeluxeRoom deluxe = (DeluxeRoom)room;
-                                if (deluxe.AdditionalBed is true)
+                                if (guest.Membership.Points >= 200)
                                 {
-                                    addrequest = "Additional Bed";
+                                    memberStatusTxt.Text = "Gold";
+                                    pointAvilTxt.Text = guest.Membership.Points.ToString();
                                 }
-
-                                price += (room.CalculateCharges() * difference);
-                            }
-
-                            invoiceTxt.Text = $"Name: {guest.Name} \n Passport Number {guest.PpNumber} \n Number of Nights: {difference} \n Additional Request: {addrequest} \n Total Amount: $ {price} ";
-
-                            if (guest.Membership.Points >= 200)
-                            {
-                                memberStatusTxt.Text = "Gold";
-                                pointAvilTxt.Text = guest.Membership.Points.ToString();
-                            }
-                            else if (guest.Membership.Points >= 100)
-                            {
-                                memberStatusTxt.Text = "Silver";
-                                pointAvilTxt.Text = guest.Membership.Points.ToString();
-                            }
-                            else 
-                            {
-                                memberStatusTxt.Text = "Ordinary";
-                                pointAvilTxt.Text = guest.Membership.Points.ToString();
+                                else if (guest.Membership.Points >= 100)
+                                {
+                                    memberStatusTxt.Text = "Silver";
+                                    pointAvilTxt.Text = guest.Membership.Points.ToString();
+                                }
+                                else
+                                {
+                                    memberStatusTxt.Text = "Ordinary";
+                                    pointAvilTxt.Text = guest.Membership.Points.ToString();
+                                }
                             }
                         }
                     }
