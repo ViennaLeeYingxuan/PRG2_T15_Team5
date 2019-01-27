@@ -493,6 +493,7 @@ namespace PRG2_T15_Team5
                 }
 
                 //ADVANCE
+                
                 if(redeemPoint.Text == null)
                 {
                     redeemPoint.Text = "0";
