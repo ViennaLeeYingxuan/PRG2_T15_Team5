@@ -101,7 +101,7 @@ namespace PRG2_T15_Team5
             guestList.Add(guest4);
 
             stay1.AddRoom(room1);
-             stay2.AddRoom(room7);
+            stay2.AddRoom(room7);
             stay3.AddRoom(room4);
             stay4.AddRoom(room10);
 
@@ -177,6 +177,7 @@ namespace PRG2_T15_Team5
                 {
                     if (name == guestList[i].Name && passport == guestList[i].PpNumber)
                     {
+                        
                         guestList[i].IsCheckedIn = true;
                         guestList[i].Hotel = stay;
 
@@ -237,14 +238,23 @@ namespace PRG2_T15_Team5
 
                 if (checkIn != null && checkOut != null)
                 {
-                    foreach (HotelRoom room in hotelList)
+                    for (int i = 0; i < hotelList.Count; i++)
                     {
-                        if (room.IsAvail == true)
+                        if (hotelList[i].IsAvail == true)
                         {
-                            availList.Add(room);
+                            availList.Add(hotelList[i]);
                             availableList.ItemsSource = availList;
                         }
                     }
+                   
+                    //foreach (HotelRoom room in hotelList)
+                    //{
+                    //    if (room.IsAvail == true)
+                    //    {
+                    //        availList.Add(room);
+                    //        availableList.ItemsSource = availList;
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -669,8 +679,8 @@ namespace PRG2_T15_Team5
 
         private void extendBtn_Click(object sender, RoutedEventArgs e)
         {
-            string name = guestName.Text;
-            string passport = passportNoTxt.Text;
+            string name = guestName.Text.ToUpper().Trim();
+            string passport = passportNoTxt.Text.ToUpper().Trim();
 
             foreach(Guest guest in guestList)
             {
@@ -683,7 +693,7 @@ namespace PRG2_T15_Team5
                 }
                 else
                 {
-                    statusText.Text = "Unavailable";
+                    statusText.Text = "Please enter both correct passport number and name";
                 }
             }
 
