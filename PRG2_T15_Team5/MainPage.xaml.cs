@@ -179,12 +179,11 @@ namespace PRG2_T15_Team5
                     {
                         
                         guestList[i].IsCheckedIn = true;
+                        //guestList[i].Hotel.RoomList.
                         guestList[i].Hotel = stay;
 
-                        foreach (HotelRoom room in selectedList)
-                        {
-                            unavailList.Add(room);
-                        }
+
+
                         foreach (HotelRoom room in unavailList)
                         {
                             room.IsAvail = false;
@@ -230,8 +229,8 @@ namespace PRG2_T15_Team5
             if (adult != "" && kid != "")
             {
                 statusText.Text = "";
-                int adultno = Convert.ToInt32(adult);
-                int kidno = Convert.ToInt32(kid);
+               // int adultno = Convert.ToInt32(adult);
+               // int kidno = Convert.ToInt32(kid);
 
                 var checkIn = checkInDate.Date;
                 var checkOut = checkOutDate.Date;
